@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Wallpaper Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script src="action.js"></script> -->
+    <script src="jquery_functions.js"></script>
+
+</head>
+
+<body>
+
+    <div id="title">
+        <h1>Wallpaper Downloader</h1>
+    </div>
+    <hr>
+    <div id="dropdown">
+        <form action="index.html" method="get" id="search-form">
+            <!-- <label for="search-string">Enter a category</label> -->
+            <input type="text" id="search-string" placeholder="Search a category...">
+            <div id="submit">
+                <button type="button" id="submit-button" onclick="search_handler()">Search</button>
+            </div>
+        </form>
+    </div>
+    <div id="response">
+        <!-- <img src="https://images.unsplash.com/photo-1655883122399-379583135295?"> -->
+    </div>
+    
+</body>
+
+</html>
