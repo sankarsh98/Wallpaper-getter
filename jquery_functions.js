@@ -79,21 +79,53 @@ function search_handler() {
     xhr.send();
 }
 
-function readTextFile() {
 
-    file="./abc.txt";
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                alert(allText);
+function api_tester() {
+
+    const xhr = new XMLHttpRequest();
+
+    var url = "http://localhost:8080/images";
+
+    xhr.open("GET",
+        url, true);
+
+        xhr.onload = function () {
+            if (this.status === 200) {
+    
+                // Changing string data into JSON Object
+                obj = JSON.parse(this.responseText);
+    
+                // Getting the ul element
+                let response = document.getElementById("response");
+                // str = '<img src="' + obj.urls.regular + '">';
+                str = '<p>' + obj + '</p>';
+                console.log(str);
+                response.innerHTML = str;
+            }
+            else {
+                console.log("File not found");
             }
         }
-    }
-    rawFile.send(null);
+    
+        // At last send the request
+        xhr.send();
 }
+
+// function readTextFile() {
+
+//     file="./abc.txt";
+//     var rawFile = new XMLHttpRequest();
+//     rawFile.open("GET", file, false);
+//     rawFile.onreadystatechange = function () {
+//         if (rawFile.readyState === 4) {
+//             if (rawFile.status === 200 || rawFile.status == 0) {
+//                 var allText = rawFile.responseText;
+//                 alert(allText);
+//             }
+//         }
+//     }
+//     rawFile.send(null);
+// }
 
 // $.ajax({
 //     type: "POST",
@@ -103,21 +135,23 @@ function readTextFile() {
 //      // do something
 //   });
 
-$(document).ready(function() {
-    $("button").click(function() {
-        // $.ajax({url: "geeks.txt", 
-        //         success: function(result) {
-        //     $("#h11").html(result);
-        // }});
-        text = "Hello";
-        $.ajax({
-            type: "POST",
-            url: "./test.py",
-            data: { param: text }
-        }).done(function (o) {
-            // do something
-            alert(text);
-        });
-        // alert("Hello");
-    });
-});
+// $(document).ready(function() {
+//     $("button").click(function() {
+//         // $.ajax({url: "geeks.txt", 
+//         //         success: function(result) {
+//         //     $("#h11").html(result);
+//         // }});
+//         text = "Hello";
+//         $.ajax({
+//             type: "POST",
+//             url: "./test.py",
+//             data: { param: text }
+//         }).done(function (o) {
+//             // do something
+//             alert(text);
+//         });
+//         // alert("Hello");
+//     });
+// });
+
+//this is a comment
