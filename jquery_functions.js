@@ -98,7 +98,9 @@ function api_tester() {
                 // Getting the ul element
                 let response = document.getElementById("response");
                 // str = '<img src="' + obj.urls.regular + '">';
-                str = '<p>' + obj + '</p>';
+
+
+                str = '<p>' + obj.id + '</p>';
                 console.log(str);
                 response.innerHTML = str;
             }
