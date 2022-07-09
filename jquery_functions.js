@@ -84,7 +84,7 @@ function api_tester() {
 
     const xhr = new XMLHttpRequest();
 
-    var url = "http://sankarshpallela.co:8080/images";
+    var url = "http://sankarshpallela.co:8080/images/1";
 
     xhr.open("GET",
         url, true);
