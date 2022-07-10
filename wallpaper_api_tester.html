@@ -19,9 +19,19 @@
     <div id="dropdown">
         <form action="index.html" method="get" id="search-form">
             <!-- <label for="search-string">Enter a category</label> -->
-            <input type="text" id="search-string" placeholder="Search a category...">
+            <label for="category">Choose a category</label>
+            <select name="Category" id="category">
+                <option value="default" id="dropdown-value">--Choose a category--</option>
+                <option value="animals">Animals</option>
+                <option value="nature">Nature</option>
+                <option value="space">Space</option>
+                <option value="ganesh">Ganesh</option>
+                <option value="sports">Sports</option>
+                <option value="">Random</option>
+            </select>
+
             <div id="submit">
-                <button type="button" id="submit-button" onclick="api_tester()">Search</button>
+                <button type="button" id="submit-button" onclick="random_tester()">Search</button>
             </div>
         </form>
     </div>

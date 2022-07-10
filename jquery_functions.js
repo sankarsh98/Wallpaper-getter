@@ -9,31 +9,66 @@ function selection() {
     // Instantiate an new XHR Object
     const xhr = new XMLHttpRequest();
 
+    const xhrSaveURL = new XMLHttpRequest();
+
+    const xhrRandomUrl = new XMLHttpRequest();
+
+    var regUrl = "sample.com";
+
     var category = document.getElementById("category").value;
 
     // Open an obejct (GET/POST, PATH,
     // ASYN-TRUE/FALSE)
     var url = "https://api.unsplash.com/photos/random?client_id=JiouuZcbhMxy8L8Oi9vgQ3oavNekX6PqqhIK-vBj5M8&query=" + category + "&orientation=landscape";
 
-    xhr.open("GET",
-        url, true);
-
-
-
+    xhr.open("GET", url, true);
 
     // When response is ready
     xhr.onload = function () {
-        if (this.status === 200) {
+        if (xhr.status === 200) {
 
             // Changing string data into JSON Object
-            obj = JSON.parse(this.responseText);
+            obj = JSON.parse(xhr.responseText);
+
+            var saveUrl = "http://localhost:8081/terms/" + category + "/urls/";
+
 
             // Getting the ul element
             let response = document.getElementById("response");
+
+            regUrl = obj.urls.regular;
+            var saveJsonString = {
+                "url": regUrl
+            };
+            xhrSaveURL.open("POST", saveUrl, true);
+            xhrSaveURL.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhrSaveURL.send(JSON.stringify(saveJsonString));
+
             str = '<img src="' + obj.urls.regular + '">';
 
             console.log(str);
             response.innerHTML = str;
+        } else if (xhr.status === 403) {
+
+            var randomUrl = "http://localhost:8081/terms/" + category + "/urls/random/";
+
+            xhrRandomUrl.open("GET", randomUrl, true);
+
+            xhrRandomUrl.onload = function () {
+                if (this.status === 200) {
+
+                    randomResponse = JSON.parse(this.responseText);
+
+                    str = '<img src="' + randomResponse.url + '">';
+
+                    console.log(str);
+                    response.innerHTML = str;
+
+                }
+            }
+
+            xhrRandomUrl.send();
+
         }
         else {
             console.log("File not found");
@@ -84,35 +119,80 @@ function api_tester() {
 
     const xhr = new XMLHttpRequest();
 
-    var url = "http://sankarshpallela.co:8080/images/1";
 
-    xhr.open("GET",
+    var term = document.getElementById("category").value;
+    var regUrl = "adfadf.com";
+    var jsonString = {
+        "url": regUrl
+    };
+
+    var url = "http://localhost:8081/terms/" + term + "/urls/";
+
+    let response = document.getElementById("response");
+
+    xhr.open("POST",
         url, true);
 
-        xhr.onload = function () {
-            if (this.status === 200) {
-    
-                // Changing string data into JSON Object
-                obj = JSON.parse(this.responseText);
-    
-                // Getting the ul element
-                let response = document.getElementById("response");
-                // str = '<img src="' + obj.urls.regular + '">';
+
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+
+            // Changing string data into JSON Object
+            obj = JSON.parse(this.responseText);
+
+            // Getting the ul element
+            // str = '<img src="' + obj.urls.regular + '">';
 
 
-                str = '<p>' + obj.id + '</p>';
-                console.log(str);
-                response.innerHTML = str;
-            }
-            else {
-                console.log("File not found");
-            }
+            str = '<p>' + obj.id + obj.term + '</p>';
+            console.log(str);
+            response.innerHTML = str;
+            xhr.send(JSON.stringify(jsonString));
+
         }
-    
-        // At last send the request
-        xhr.send();
+        else if (this.status === 403) {
+
+            console.log("here");
+
+
+
+        }
+        else {
+            console.log("File not found");
+        }
+    }
+
+    // At last send the request
+    // xhr.send(JSON.stringify('{ "url" : '+regUrl +'}'));
+
 }
 
+function random_tester() {
+
+    const xhrRandomUrl = new XMLHttpRequest();
+
+    var term = document.getElementById("category").value;
+
+    var randomUrl = "http://localhost:8081/terms/" + term + "/urls/random/";
+
+    xhrRandomUrl.open("GET", randomUrl, true);
+
+    xhrRandomUrl.onload = function () {
+        if (this.status === 200) {
+
+            randomResponse = JSON.parse(this.responseText);
+
+            str = '<p> ' + randomResponse.url + '</p>';
+            console.log(str);
+            response.innerHTML = str;
+
+        }
+    }
+
+    xhrRandomUrl.send();
+}
 // function readTextFile() {
 
 //     file="./abc.txt";
@@ -157,3 +237,4 @@ function api_tester() {
 // });
 
 //this is a comment
+
